@@ -1,0 +1,9 @@
+{
+  "ami-kappers-middelharnis": {
+    "displayName": "AMI Kappers Middelharnis",
+    "toneOfVoice": "Warm en persoonlijk, alsof de eigenaar zelf reageert. Vriendelijk en oprecht, ook bij kritiek — nooit defensief, nooit afstandelijk of overdreven formeel.",
+    "maxWords": 90,
+    "businessInfo": "Een lokale kapperszaak in Middelharnis. Kernwaarden: gastvrijheid, vakmanschap en een prettige sfeer voor het hele gezin.",
+    "closing": "Met vriendelijke groet,\nTeam AMI Kappers"
+  }
+}
