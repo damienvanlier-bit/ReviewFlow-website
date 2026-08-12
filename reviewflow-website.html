@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReviewFlow — Online reputatie & klantcommunicatie voor lokale bedrijven</title>
+<meta name="description" content="ReviewFlow houdt uw Google-reviews, klantvragen en social media professioneel bij — persoonlijk, snel en zonder dat het u tijd kost. Gratis reputatiecheck, geen lange contracten.">
+<meta name="robots" content="index, follow">
+<!-- TODO (Damien): vervang door het definitieve .nl-domein zodra dat live staat -->
+<link rel="canonical" href="https://damienvanlier-bit.github.io/ReviewFlow-website/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ReviewFlow">
+<meta property="og:title" content="ReviewFlow — Online reputatie & klantcommunicatie voor lokale bedrijven">
+<meta property="og:description" content="Professionele reacties op uw Google-reviews, klantvragen en advertenties in uw eigen huisstijl. Gratis reputatiecheck, maandelijks opzegbaar.">
+<meta property="og:url" content="https://damienvanlier-bit.github.io/ReviewFlow-website/">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="https://damienvanlier-bit.github.io/ReviewFlow-website/og-image.png">
+<!-- TODO (Damien): og-image.png bestaat nog niet — voeg een 1200×630 afbeelding met logo + tagline toe aan de root van de website-repo -->
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ReviewFlow — Online reputatie & klantcommunicatie voor lokale bedrijven">
+<meta name="twitter:description" content="Professionele reacties op uw Google-reviews, klantvragen en advertenties in uw eigen huisstijl.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 54 53'%3E%3Crect width='54' height='53' rx='10' fill='%23292929'/%3E%3Cpath d='M27,7L32.9,17.8L45.2,15.8L40.6,26.9L50,35.4L38.5,39L37.7,51.3L27,44.2L16.3,51.3L15.5,39L4,35.4L13.4,26.9L8.8,15.8L21.1,17.8Z' fill='%23C9A15A'/%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "ReviewFlow",
+  "description": "Online reputatie & klantcommunicatie voor lokale bedrijven: Google-reviewreacties, klantvragen, social media en advertenties.",
+  "areaServed": "Goeree-Overflakkee",
+  "priceRange": "€49–€199",
+  "founder": { "@type": "Person", "name": "Damien van Lier" },
+  "email": "damienvanlier@gmail.com"
+}
+</script>
+<style>
+  :root{
+    --charcoal:#292929;
+    --charcoal-soft:#4a4a47;
+    --gold:#C9A15A;
+    --gold-deep:#a87f3d;
+    --cream:#fefbf7;
+    --line:#e7e1d4;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--charcoal);
+    background:var(--cream);
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(254,251,247,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; font-weight:600; font-size:20px;}
+  .logo svg{width:26px; height:26px;}
+  nav ul{display:flex; gap:26px; list-style:none; font-size:15px; font-weight:500;}
+  nav ul a{text-decoration:none; opacity:0.75; transition:opacity .2s;}
+  nav ul a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--charcoal); color:var(--cream); padding:10px 20px;
+    border-radius:2px; text-decoration:none; font-size:14px; font-weight:600;
+    letter-spacing:.02em;
+  }
+  .skip-link{
+    position:absolute; left:-999px; top:0; background:var(--charcoal); color:var(--cream);
+    padding:12px 20px; z-index:100; text-decoration:none; font-weight:600;
+  }
+  .skip-link:focus{ left:12px; top:12px; }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold-deep); outline-offset:3px;
+  }
+  .nav-toggle{
+    display:none; background:none; border:1px solid var(--line); border-radius:4px;
+    width:42px; height:38px; padding:0; cursor:pointer; align-items:center; justify-content:center;
+  }
+  .nav-toggle span, .nav-toggle::before, .nav-toggle::after{
+    content:""; display:block; width:20px; height:2px; background:var(--charcoal);
+    position:relative; transition:transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle::before{ position:absolute; transform:translateY(-6px); }
+  .nav-toggle::after{ position:absolute; transform:translateY(6px); }
+  .nav-toggle[aria-expanded="true"] span{ opacity:0; }
+  .nav-toggle[aria-expanded="true"]::before{ transform:rotate(45deg); }
+  .nav-toggle[aria-expanded="true"]::after{ transform:rotate(-45deg); }
+  @media(max-width:720px){
+    .nav-toggle{ display:flex; }
+    nav ul{
+      display:flex; flex-direction:column; gap:0; position:absolute; top:76px; left:0; right:0;
+      background:var(--cream); border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden; transition:max-height .25s ease;
+    }
+    nav ul.open{ max-height:400px; }
+    nav ul li{ margin:0; }
+    nav ul a{ display:block; padding:16px 28px; border-top:1px solid var(--line); opacity:1; }
+    .nav-cta{ display:none; }
+  }
+  @media(prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition-duration:0.001ms !important; animation-duration:0.001ms !important; }
+  }
+
+  /* HERO */
+  header.hero{padding:110px 0 90px; border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold-deep); font-weight:600; margin-bottom:26px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--gold-deep);}
+  h1.display{
+    font-size:clamp(34px,5.4vw,58px);
+    max-width:800px;
+    line-height:1.08;
+    margin-bottom:26px;
+  }
+  h1.display em{font-style:italic; color:var(--gold-deep);}
+  .lede{
+    max-width:560px; font-size:19px; color:var(--charcoal-soft); margin-bottom:38px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--charcoal); color:var(--cream); padding:15px 28px;
+    text-decoration:none; font-weight:600; font-size:15px; border-radius:2px;
+  }
+  .btn-ghost{
+    border:1px solid var(--charcoal); padding:15px 28px; text-decoration:none;
+    font-weight:600; font-size:15px; border-radius:2px; color:var(--charcoal);
+  }
+
+  /* STAR RATING STRIP */
+  .stars{display:flex; gap:6px; margin-top:46px;}
+  .stars svg{width:22px; height:22px;}
+
+  /* VOOR/NA */
+  section.contrast{padding:90px 0; border-bottom:1px solid var(--line);}
+  .section-head{max-width:620px; margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px); line-height:1.15;}
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media(max-width:760px){ .pair{grid-template-columns:1fr;} }
+  .card{
+    border:1px solid var(--line); border-radius:4px; padding:32px; background:#fff;
+  }
+  .card.bad{border-top:3px solid #b9b2a0;}
+  .card.good{border-top:3px solid var(--gold);}
+  .card .tag{font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; opacity:.55; margin-bottom:14px; display:block;}
+  .card .tag.good{color:var(--gold-deep); opacity:1;}
+  .card blockquote{font-size:15.5px; color:var(--charcoal-soft); font-style:italic; border-left:2px solid var(--line); padding-left:16px; margin-bottom:0;}
+  .card.good blockquote{border-left-color:var(--gold);}
+
+  /* SERVICES */
+  section.services{padding:90px 0; border-bottom:1px solid var(--line); background:#fbf7ee;}
+  .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line); border:1px solid var(--line);}
+  @media(max-width:900px){ .grid4{grid-template-columns:repeat(2,1fr);} }
+  .grid4 > div{background:#fbf7ee; padding:34px 26px;}
+  .grid4 h3{font-size:18px; margin-bottom:10px; font-weight:600;}
+  .grid4 p{font-size:14.5px; color:var(--charcoal-soft);}
+  .num{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; font-size:14px; color:var(--gold-deep); font-weight:600; margin-bottom:18px; display:block;}
+
+  /* PRICING */
+  section.pricing{padding:90px 0; border-bottom:1px solid var(--line);}
+  .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:820px){ .plans{grid-template-columns:1fr;} }
+  .plan{position:relative; border:1px solid var(--line); border-radius:4px; padding:34px 28px; background:#fff;}
+  .plan.featured{border-color:var(--gold); box-shadow:0 6px 24px -10px rgba(201,161,90,.35);}
+  .badge{
+    position:absolute; top:-15px; right:22px;
+    background:var(--charcoal); color:var(--gold);
+    font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    padding:7px 16px; border-radius:20px;
+    white-space:nowrap;
+  }
+  .plan .name{font-size:13px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--charcoal-soft); margin-bottom:10px;}
+  .plan .price{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; font-size:38px; margin-bottom:4px;}
+  .plan .price span{font-size:15px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-weight:500; color:var(--charcoal-soft);}
+  .plan ul{list-style:none; margin-top:22px;}
+  .plan li{font-size:14.5px; padding:8px 0; border-top:1px solid var(--line); color:var(--charcoal-soft);}
+  .plan li:first-child{border-top:none;}
+  .plan li.addon{
+    color:var(--gold-deep); font-weight:700; border-top:1px dashed var(--gold);
+    margin-top:2px; padding-top:12px;
+  }
+  .plan li.addon.included::before{ content:"✓ "; }
+
+  /* UITGELICHT HIGHLIGHT */
+  .uitgelicht-panel{
+    margin-top:46px; background:#fbf7ee; border:1px solid var(--line); border-radius:8px;
+    padding:40px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:36px; align-items:center;
+  }
+  @media(max-width:820px){ .uitgelicht-panel{ grid-template-columns:1fr; padding:28px; } }
+  .uitgelicht-tag{
+    display:inline-block; background:var(--charcoal); color:var(--gold); font-size:11px; font-weight:700;
+    letter-spacing:.08em; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:16px;
+  }
+  .uitgelicht-text h3{ font-size:24px; margin-bottom:14px; line-height:1.2; }
+  .uitgelicht-text > p{ font-size:15.5px; color:var(--charcoal-soft); margin-bottom:18px; }
+  .uitgelicht-features{ list-style:none; margin-bottom:20px; }
+  .uitgelicht-features li{
+    font-size:14.5px; color:var(--charcoal-soft); padding:7px 0 7px 24px; position:relative;
+  }
+  .uitgelicht-features li::before{
+    content:"✓"; position:absolute; left:0; top:7px; color:var(--gold-deep); font-weight:700;
+  }
+  .uitgelicht-availability{
+    font-size:13.5px; font-weight:600; color:var(--charcoal); border-top:1px solid var(--line); padding-top:16px;
+  }
+  .uitgelicht-availability span{ color:var(--gold-deep); }
+  .uitgelicht-visual{ position:relative; display:flex; flex-direction:column; align-items:center; padding-top:6px; }
+  .uitgelicht-card{
+    background:#fff; border-radius:14px; box-shadow:0 18px 36px -16px rgba(41,41,41,0.28);
+    transform:rotate(-2.5deg); margin-top:2px;
+  }
+  @media(max-width:820px){ .uitgelicht-visual{ align-items:center; } }
+
+  /* REVIEWKAARTJES */
+  .rk-intro{ max-width:640px; font-size:15.5px; color:var(--charcoal-soft); margin-bottom:40px; }
+  .rk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  @media(max-width:760px){ .rk-grid{ grid-template-columns:1fr; } }
+  .rk-product{ background:#fff; border:1px solid var(--line); border-radius:6px; padding:28px; text-align:center; }
+  .rk-visual{ display:flex; justify-content:center; margin-bottom:18px; }
+  .rk-visual img{ box-shadow:0 14px 30px -14px rgba(41,41,41,0.28); }
+  .rk-product h3{ font-size:19px; margin-bottom:8px; }
+  .rk-product p{ font-size:14px; color:var(--charcoal-soft); max-width:340px; margin:0 auto 16px; }
+  .rk-price{ font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; font-size:26px; color:var(--charcoal); font-weight:600; }
+  .rk-price span{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:13px; font-weight:500; color:var(--charcoal-soft); margin-left:6px; }
+  .rk-note{ text-align:center; font-size:13.5px; color:var(--charcoal-soft); margin-top:26px; font-style:italic; }
+  .rk-combi{
+    margin-top:26px; background:var(--charcoal); border-radius:6px; padding:26px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+  }
+  .rk-combi-text{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; flex:1; min-width:260px; }
+  .rk-combi-badge{
+    background:var(--gold); color:var(--charcoal); font-size:12px; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; padding:8px 16px; border-radius:20px; white-space:nowrap; flex-shrink:0;
+  }
+  .rk-combi p{ color:var(--cream); font-size:15px; margin:0; }
+  .rk-combi strong{ color:var(--gold); }
+  .rk-combi-cta{
+    background:var(--gold); color:var(--charcoal); font-weight:700; font-size:14.5px;
+    padding:13px 24px; border-radius:4px; text-decoration:none; white-space:nowrap; flex-shrink:0;
+  }
+
+  /* CTA */
+  section.cta{padding:100px 0; text-align:center;}
+  section.cta h2{font-size:clamp(28px,4vw,42px); max-width:640px; margin:0 auto 18px;}
+  section.cta p{color:var(--charcoal-soft); font-size:17px; margin-bottom:36px;}
+
+  footer{border-top:1px solid var(--line); padding:50px 0 40px; font-size:13.5px; color:var(--charcoal-soft);}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;}
+  footer a{text-decoration:underline; text-underline-offset:2px;}
+
+  /* PRIVACY */
+  #privacy{padding:90px 0; border-top:1px solid var(--line); background:#fbf7ee;}
+  #privacy h2{font-size:30px; margin-bottom:8px;}
+  #privacy .updated{font-size:13px; color:var(--charcoal-soft); margin-bottom:44px;}
+  #privacy h3{font-size:18px; margin:34px 0 10px; font-weight:600;}
+  #privacy p, #privacy li{font-size:15px; color:var(--charcoal-soft); max-width:720px;}
+  #privacy ul{padding-left:20px; margin-bottom:10px;}
+  #privacy li{margin-bottom:6px;}
+  .sector-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
+  .sector-pill{
+    border:1px solid var(--line); background:#fff; color:var(--charcoal-soft);
+    font-size:13px; font-weight:500; padding:7px 16px; border-radius:20px;
+  }
+
+  /* WHY */
+  section.why{padding:80px 0; border-bottom:1px solid var(--line);}
+  .why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:10px;}
+  @media(max-width:820px){ .why-grid{grid-template-columns:1fr;} }
+  .why-item .mark{
+    width:34px; height:34px; border-radius:50%; background:var(--charcoal);
+    color:var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:Georgia,serif; font-size:16px; font-weight:600; margin-bottom:16px;
+  }
+  .why-item h3{font-size:17px; margin-bottom:8px; font-weight:600;}
+  .why-item p{font-size:14.5px; color:var(--charcoal-soft);}
+  .combo-banner{
+    margin-top:38px; background:var(--charcoal); color:var(--gold);
+    border-radius:4px; padding:22px 28px; text-align:center;
+    font-size:16px; font-weight:600;
+  }
+  .combo-banner span{color:#fff; font-weight:400; font-size:14.5px; display:block; margin-top:4px;}
+  .marketing-intro{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; margin-bottom:44px;}
+  @media(max-width:820px){ .marketing-intro{grid-template-columns:1fr;} }
+  .marketing-intro p{font-size:16px; color:var(--charcoal-soft);}
+  .marketing-intro p strong{color:var(--charcoal); font-weight:600;}
+  .format-preview{display:flex; align-items:flex-end; justify-content:center; gap:14px;}
+
+  .combo-section{margin-top:46px; border-top:1px solid var(--line); padding-top:40px;}
+  .combo-section h3{font-size:22px; margin-bottom:10px;}
+  .combo-section > p{font-size:15px; color:var(--charcoal-soft); max-width:600px; margin-bottom:26px;}
+  .combo-examples{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media(max-width:760px){ .combo-examples{grid-template-columns:1fr;} }
+  .combo-chip{
+    background:#fff; border:1px solid var(--line); border-radius:4px; padding:22px 20px; text-align:center;
+    position:relative;
+  }
+  .combo-chip.max{border-color:var(--gold);}
+  .combo-chip .pct{
+    position:absolute; top:-13px; right:14px; background:var(--charcoal); color:var(--gold);
+    font-size:12px; font-weight:700; padding:5px 12px; border-radius:14px;
+  }
+  .combo-chip .pair{font-size:13px; color:var(--charcoal-soft); margin-bottom:8px;}
+  .combo-chip .was{font-size:14px; color:var(--charcoal-soft); text-decoration:line-through;}
+  .combo-chip .now{font-family:Georgia,serif; font-size:24px; color:var(--charcoal); font-weight:600;}
+  .combo-note{font-size:13.5px; color:var(--charcoal-soft); margin-top:20px; font-style:italic;}
+
+  /* OVER MIJ */
+  section.about{padding:90px 0; border-bottom:1px solid var(--line); background:#fbf7ee;}
+  .about-text p{font-size:15.5px; color:var(--charcoal-soft); margin-bottom:16px; max-width:520px;}
+  .about-text p:last-child{margin-bottom:0;}
+  .about-card{
+    width:240px; height:220px; border-radius:8px; background:var(--charcoal);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    margin:0 auto;
+  }
+  .about-card span.name{color:var(--cream); font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; font-size:19px; white-space:nowrap; text-align:center; padding:0 12px;}
+  .about-card span.role{color:var(--gold); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;}
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);
+    white-space:nowrap; border:0; padding:0; margin:-1px;
+  }
+  .calc{
+    background:#fff; border:1px solid var(--line); border-radius:6px; padding:28px;
+    display:grid; grid-template-columns:1fr 1fr auto; gap:20px 24px; align-items:end;
+  }
+  @media(max-width:760px){ .calc{ grid-template-columns:1fr; } }
+  .calc-row label{
+    display:block; font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--charcoal-soft); margin-bottom:8px;
+  }
+  .calc-row select{
+    width:100%; font-family:inherit; font-size:15px; color:var(--charcoal);
+    padding:12px 14px; border:1px solid var(--charcoal); border-radius:4px; background:#fff;
+    appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23292929'%3E%3Cpath d='M5.5 8l4.5 4.5L14.5 8z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 12px center; background-size:14px;
+  }
+  .calc-result{
+    text-align:right; border-top:1px solid var(--line); padding-top:18px; grid-column:1/-1;
+    display:flex; align-items:baseline; justify-content:flex-end; gap:16px; flex-wrap:wrap;
+  }
+  @media(max-width:760px){ .calc-result{ justify-content:space-between; text-align:left; } }
+  .calc-was{ font-size:13.5px; color:var(--charcoal-soft); text-decoration:line-through; }
+  .calc-pct{
+    background:var(--charcoal); color:var(--gold); font-size:12px; font-weight:700;
+    padding:5px 12px; border-radius:14px;
+  }
+  .calc-now{ font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif; font-size:28px; color:var(--charcoal); font-weight:600; }
+  .calc-now span:last-child{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:14px; font-weight:500; color:var(--charcoal-soft); margin-left:4px; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Ga naar inhoud</a>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">
+      <svg viewBox="0 0 54 53" fill="#C9A15A" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+      ReviewFlow
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu openen">
+      <span></span>
+    </button>
+    <ul id="navLinks">
+      <li><a href="#voorna">Werkwijze</a></li>
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#pakketten">Pakketten</a></li>
+      <li><a href="#marketing-assets">Marketing</a></li>
+      <li><a href="#reviewkaartjes">Kaartjes</a></li>
+      <li><a href="#over-mij">Over mij</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Plan een kennismaking</a>
+  </div>
+</nav>
+
+<header class="hero" id="main-content">
+  <div class="wrap">
+    <span class="eyebrow">Voor lokale ondernemers</span>
+    <h1 class="display">Uw klanten praten al over u online. <em>Reageert u ook al?</em></h1>
+    <p class="lede">ReviewFlow houdt uw Google-reviews en klantcommunicatie professioneel bij — persoonlijk, snel, en zonder dat het u tijd kost.</p>
+    <div class="sector-row">
+      <span class="sector-pill">Kappers &amp; barbershops</span>
+      <span class="sector-pill">Restaurants</span>
+      <span class="sector-pill">Garages</span>
+      <span class="sector-pill">Winkels</span>
+      <span class="sector-pill">Praktijken</span>
+      <span class="sector-pill">En meer</span>
+    </div>
+    <div class="hero-actions" style="margin-top:34px;">
+      <a class="btn-primary" href="#contact">Gratis reputatiecheck aanvragen</a>
+      <a class="btn-ghost" href="#pakketten">Bekijk pakketten</a>
+    </div>
+    <div class="stars" role="img" aria-label="Voorbeeldweergave: 4 van de 5 sterren, zoals uw klanten die op Google zien">
+      <svg viewBox="0 0 54 53" fill="#C9A15A" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+      <svg viewBox="0 0 54 53" fill="#C9A15A" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+      <svg viewBox="0 0 54 53" fill="#C9A15A" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+      <svg viewBox="0 0 54 53" fill="#C9A15A" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+      <svg viewBox="0 0 54 53" fill="#D9D4CC" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+    </div>
+  </div>
+</header>
+
+<section class="contrast" id="voorna">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Het verschil</span>
+      <h2>Een kort, kortaf antwoord kost u meer klanten dan de klacht zelf.</h2>
+    </div>
+    <div class="pair">
+      <div class="card bad">
+        <span class="tag">Voor — zonder ReviewFlow</span>
+        <blockquote>"Oké, jammer dat u dit zo heeft ervaren."</blockquote>
+      </div>
+      <div class="card good">
+        <span class="tag good">Na — met ReviewFlow</span>
+        <blockquote>"Bedankt dat u uw ervaring met ons deelt. Wat vervelend om te horen dat u langer heeft moeten wachten dan verwacht. Onze excuses hiervoor — we hopen u bij een volgend bezoek een betere ervaring te bieden."</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="diensten">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Wat wij doen</span>
+      <h2>Alles wat uw online klantcommunicatie professioneel houdt.</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="grid4">
+      <div><span class="num">01</span><h3>Google Reviews</h3><p>Professionele reacties op al uw Google-reviews, binnen 48 uur — inclusief signalering van verdachte of nepreviews bij Google.</p></div>
+      <div><span class="num">02</span><h3>Klantvragen</h3><p>Snelle, persoonlijke antwoorden op veelgestelde klantvragen.</p></div>
+      <div><span class="num">03</span><h3>Social Media</h3><p>Pakkende social-media teksten voor uw kanalen.</p></div>
+      <div><span class="num">04</span><h3>Rapportage</h3><p>Maandelijks overzicht van reviews, reacties en resultaten.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pakketten">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pakketten</span>
+      <h2>Kies wat bij uw bedrijf past.</h2>
+    </div>
+
+    <div class="marketing-intro">
+      <p>De meeste ondernemers laten reviews wekenlang onbeantwoord liggen — niet uit onwil, maar uit tijdgebrek. Wij zorgen dat elke review, positief of negatief, <strong>binnen de afgesproken termijn een doordacht antwoord</strong> krijgt, geschreven in uw eigen toon van stem. Elk antwoord wordt eerst door ons gecontroleerd voordat het naar u of live gaat — nooit een kopieer-plak sjabloon.</p>
+      <svg class="format-preview" width="300" height="132" viewBox="0 0 300 132" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="298" height="130" rx="8" fill="#fff" stroke="#292929" stroke-width="1.5"/>
+        <line x1="150" y1="18" x2="150" y2="114" stroke="#e7e1d4" stroke-width="1"/>
+
+        <!-- links: binnenkomende review -->
+        <g transform="translate(20,14) scale(0.19)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+        <g transform="translate(33,14) scale(0.19)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+        <g transform="translate(46,14) scale(0.19)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+        <g transform="translate(59,14) scale(0.19)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+        <g transform="translate(72,14) scale(0.19)" fill="#D9D4CC"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+        <rect x="20" y="44" width="58" height="6" rx="3" fill="#292929" opacity=".15"/>
+        <rect x="84" y="44" width="26" height="6" rx="3" fill="#292929" opacity=".08"/>
+        <rect x="20" y="60" width="110" height="6" rx="3" fill="#292929" opacity=".15"/>
+        <rect x="20" y="72" width="88" height="6" rx="3" fill="#292929" opacity=".15"/>
+
+        <!-- rechts: reactie van ReviewFlow -->
+        <circle cx="182" cy="24" r="11" fill="#292929"/>
+        <g transform="translate(179,21) scale(0.108)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+        <rect x="200" y="19" width="54" height="6" rx="3" fill="#292929" opacity=".2"/>
+        <rect x="200" y="29" width="34" height="5" rx="2.5" fill="#292929" opacity=".08"/>
+        <rect x="168" y="46" width="112" height="6" rx="3" fill="#C9A15A" opacity=".4"/>
+        <rect x="168" y="58" width="100" height="6" rx="3" fill="#C9A15A" opacity=".4"/>
+        <rect x="168" y="70" width="66" height="6" rx="3" fill="#C9A15A" opacity=".4"/>
+
+        <!-- goedgekeurd-badge -->
+        <circle cx="270" cy="110" r="11" fill="#292929"/>
+        <path d="M264.5,110 L268.5,114 L276,103" stroke="#C9A15A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="name">Starter</div>
+        <div class="price">€49<span>/mnd</span></div>
+        <ul>
+          <li>Max. 20 reviewreacties</li>
+          <li>Persoonlijke tone of voice</li>
+          <li>Wekelijkse controle, reactie binnen 48 uur</li>
+        </ul>
+      </div>
+      <div class="plan featured">
+        <span class="badge">Meest gekozen</span>
+        <div class="name">Business</div>
+        <div class="price">€99<span>/mnd</span></div>
+        <ul>
+          <li>Max. 50 reviewreacties</li>
+          <li>Reviewanalyse</li>
+          <li>FAQ-antwoorden</li>
+          <li>Maandelijkse rapportage</li>
+          <li class="addon">+ Uitgelicht mogelijk (€19/mnd)</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <div class="name">Premium</div>
+        <div class="price">€179<span>/mnd</span></div>
+        <ul>
+          <li>Max. 100 reviewreacties</li>
+          <li>Reviewmonitoring</li>
+          <li>Social-media teksten</li>
+          <li>Prioriteitsservice</li>
+          <li class="addon included">Uitgelicht inbegrepen</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="uitgelicht-panel">
+      <div class="uitgelicht-text">
+        <span class="uitgelicht-tag">Nieuw</span>
+        <h3>Uitgelicht — uw beste reviews, klaar om te delen</h3>
+        <p>Een sterke review verdwijnt al snel onder nieuwe berichten. Wij lichten uw beste reacties eruit en zetten ze om in een gebrande afbeelding die u zo op Instagram of Facebook plaatst — tastbaar bewijs dat nieuwe klanten overtuigt, zonder dat het u extra werk kost.</p>
+        <ul class="uitgelicht-features">
+          <li>Tot 4 afbeeldingen per maand, in uw eigen huisstijl</li>
+          <li>Review + onze reactie in beeld — laat zien hoe u reageert</li>
+          <li>Alleen de voornaam van de reviewer, nooit een foto</li>
+        </ul>
+        <p class="uitgelicht-availability">Optioneel bij Business <span>(+€19/mnd)</span> · standaard inbegrepen bij Premium</p>
+      </div>
+
+      <div class="uitgelicht-visual">
+        <div class="uitgelicht-card">
+          <svg width="230" height="230" viewBox="0 0 230 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <rect x="1" y="1" width="228" height="228" rx="12" fill="#fff" stroke="#292929" stroke-width="1.5"/>
+            <text x="24" y="72" font-family="Georgia, serif" font-size="64" fill="#C9A15A" opacity="0.85">&#8220;</text>
+            <text x="30" y="88" font-family="Georgia, serif" font-style="italic" font-size="15.5" fill="#292929">Ongelooflijk vriendelijk</text>
+            <text x="30" y="109" font-family="Georgia, serif" font-style="italic" font-size="15.5" fill="#292929">geholpen, het resultaat</text>
+            <text x="30" y="130" font-family="Georgia, serif" font-style="italic" font-size="15.5" fill="#292929">overtrof mijn verwachting.</text>
+
+            <g transform="translate(30,146) scale(0.24)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+            <g transform="translate(43,146) scale(0.24)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+            <g transform="translate(56,146) scale(0.24)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+            <g transform="translate(69,146) scale(0.24)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+            <g transform="translate(82,146) scale(0.24)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+            <text x="30" y="172" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="12" fill="#4A4A47">— Sanne V.</text>
+
+            <line x1="24" y1="188" x2="206" y2="188" stroke="#e7e1d4" stroke-width="1"/>
+
+            <circle cx="38" cy="206" r="10" fill="#292929"/>
+            <g transform="translate(33.5,201.5) scale(0.1)" fill="#C9A15A"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></g>
+            <text x="54" y="210" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="0.3" fill="#A87F3D">UITGELICHT · REVIEWFLOW</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="marketing-assets" style="background:#fbf7ee; border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Marketing Assets</span>
+      <h2>Advertenties op maat, in uw eigen huisstijl.</h2>
+    </div>
+
+    <div class="marketing-intro">
+      <p>Een advertentie die niet aanvoelt als uw bedrijf, werkt averechts — mensen scrollen erlangs. Wij ontwerpen advertenties die <strong>direct herkenbaar</strong> zijn: uw logo, uw kleuren, uw toon. Klaar om te plaatsen, in elk formaat dat u nodig heeft — van Instagram-story tot printflyer.</p>
+      <svg class="format-preview" width="280" height="112" viewBox="0 0 280 112" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <rect x="0" y="12" width="92" height="92" rx="5" fill="#fff" stroke="#292929" stroke-width="1.5"/>
+        <path d="M20,24L22.9,29.3L28.8,28.3L26.5,33.7L30.9,37.7L25,39.1L24.6,45.1L20,41.6L15.4,45.1L15,39.1L9.1,37.7L13.5,33.7L11.2,28.3L17.1,29.3Z" fill="#C9A15A"/>
+        <rect x="10" y="58" width="72" height="5" rx="2.5" fill="#292929" opacity=".15"/>
+        <rect x="10" y="68" width="50" height="5" rx="2.5" fill="#292929" opacity=".15"/>
+        <rect x="10" y="82" width="38" height="10" rx="5" fill="#C9A15A"/>
+
+        <rect x="104" y="0" width="58" height="112" rx="5" fill="#fff" stroke="#292929" stroke-width="1.5"/>
+        <path d="M133,14L135.9,19.3L141.8,18.3L139.5,23.7L143.9,27.7L138,29.1L137.6,35.1L133,31.6L128.4,35.1L128,29.1L122.1,27.7L126.5,23.7L124.2,18.3L130.1,19.3Z" fill="#C9A15A"/>
+        <rect x="114" y="48" width="38" height="5" rx="2.5" fill="#292929" opacity=".15"/>
+        <rect x="114" y="58" width="30" height="5" rx="2.5" fill="#292929" opacity=".15"/>
+        <rect x="114" y="90" width="38" height="10" rx="5" fill="#C9A15A"/>
+
+        <rect x="174" y="26" width="106" height="60" rx="5" fill="#fff" stroke="#292929" stroke-width="1.5"/>
+        <path d="M192,36L194.9,41.3L200.8,40.3L198.5,45.7L202.9,49.7L197,51.1L196.6,57.1L192,53.6L187.4,57.1L187,51.1L181.1,49.7L185.5,45.7L183.2,40.3L189.1,41.3Z" fill="#C9A15A"/>
+        <rect x="204" y="38" width="66" height="5" rx="2.5" fill="#292929" opacity=".15"/>
+        <rect x="204" y="48" width="50" height="5" rx="2.5" fill="#292929" opacity=".15"/>
+        <rect x="204" y="68" width="40" height="10" rx="5" fill="#C9A15A"/>
+      </svg>
+    </div>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="name">Ad-Pack Starter</div>
+        <div class="price">€69<span>/mnd</span></div>
+        <ul>
+          <li>5 advertenties per maand</li>
+          <li>3 formaten (IG-post, Story, FB-feed)</li>
+          <li>1 revisieronde</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <div class="name">Ad-Pack Business</div>
+        <div class="price">€129<span>/mnd</span></div>
+        <ul>
+          <li>8 advertenties per maand</li>
+          <li>5 formaten (+ flyer, display-banner)</li>
+          <li>2 revisierondes</li>
+          <li>2 conceptrichtingen om uit te kiezen</li>
+        </ul>
+      </div>
+      <div class="plan featured">
+        <span class="badge">Meest gekozen</span>
+        <div class="name">Ad-Pack Premium</div>
+        <div class="price">€199<span>/mnd</span></div>
+        <ul>
+          <li>12 advertenties per maand</li>
+          <li>Alle 5 formaten</li>
+          <li>Onbeperkte lichte revisies</li>
+          <li>Seizoens- &amp; actiecontent, prioriteit</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:36px;">
+      <a class="btn-primary" href="#contact">Vraag uw eerste advertentieset aan</a>
+    </div>
+
+    <div class="combo-section">
+      <h3>Combineer met een reviewpakket &amp; bespaar</h3>
+      <p>Hoe hoger het niveau van beide pakketten samen, hoe hoger de korting — automatisch, geen onderhandeling nodig. Kies hieronder uw twee pakketten en zie direct uw prijs:</p>
+
+      <div class="calc" role="group" aria-labelledby="calcLabel">
+        <span id="calcLabel" class="visually-hidden">Combinatiecalculator reviewpakket en advertentiepakket</span>
+        <div class="calc-row">
+          <label for="calcReview">Reviewpakket</label>
+          <select id="calcReview">
+            <option value="49">Starter — €49/mnd</option>
+            <option value="99" selected>Business — €99/mnd</option>
+            <option value="179">Premium — €179/mnd</option>
+          </select>
+        </div>
+        <div class="calc-row">
+          <label for="calcAds">Ad-Pack (marketing assets)</label>
+          <select id="calcAds">
+            <option value="69">Starter — €69/mnd</option>
+            <option value="129" selected>Business — €129/mnd</option>
+            <option value="199">Premium — €199/mnd</option>
+          </select>
+        </div>
+        <div class="calc-result">
+          <div class="calc-was">Samen zonder korting: <span id="calcWas">€228,00</span></div>
+          <div class="calc-pct" id="calcPct">−20%</div>
+          <div class="calc-now"><span id="calcNow">€182,40</span><span>/mnd</span></div>
+        </div>
+      </div>
+      <p class="combo-note">Prijzen excl. btw. De korting wordt automatisch toegepast op uw factuur zodra u beide pakketten afneemt — geen onderhandeling nodig.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="reviewkaartjes">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Extra</span>
+      <h2>Meer reviews binnenhalen, met één tik of scan.</h2>
+    </div>
+    <p class="rk-intro">Een tevreden klant vergeet vaak simpelweg om een review achter te laten — niet uit onwil, maar omdat het net te veel moeite is. Een kaartje of standaard bij de kassa met NFC-tik en QR-code lost dat op: klant houdt de telefoon erbij of scant, en de Google-reviewpagina staat al open. Eigen ontwerp, eigen huisstijl, geen abonnement — eenmalig aanschaffen.</p>
+
+    <div class="rk-grid">
+      <div class="rk-product">
+        <div class="rk-visual">
+          <img src="images/reviewflow-standaard.jpg" alt="Google Review Standaard — zwart en wit, met NFC-tik en QR-code" style="width:100%; max-width:340px; border-radius:8px;">
+        </div>
+        <h3>Google Review Standaard</h3>
+        <p>Staat vanzelf rechtop bij de kassa of balie — het meest opvallend, ideaal als vast punt in de winkel.</p>
+        <div class="rk-price">€24,95<span>eenmalig</span></div>
+      </div>
+
+      <div class="rk-product">
+        <div class="rk-visual">
+          <img src="images/reviewflow-kaartje.jpg" alt="Google Review Kaartje — zwart en blauw/wit, met NFC-tik en QR-code" style="width:100%; max-width:340px; border-radius:8px;">
+        </div>
+        <h3>Google Review Kaartje</h3>
+        <p>Compact en flexibel — naast de kassa, op tafel, mee naar een markt of beurs. Ook geschikt om op te plakken (dubbelzijdige tape inbegrepen).</p>
+        <div class="rk-price">€19,95<span>eenmalig</span></div>
+      </div>
+    </div>
+
+    <p class="rk-note">Beide met NFC-tik én QR-code, in het zwart of wit — eigen logo en reviewlink worden bij bestelling meegenomen. Geen abonnement, eenmalige aanschaf.</p>
+
+    <div class="rk-combi">
+      <div class="rk-combi-text">
+        <span class="rk-combi-badge">Combi-deal</span>
+        <p><strong>Koop de Standaard + het Kaartje samen</strong> — ideaal voor bij de kassa én op tafel — en het Kaartje krijgt u met <strong>50% korting</strong>: samen €34,93 in plaats van €44,90.</p>
+      </div>
+      <a class="rk-combi-cta" href="mailto:damienvanlier@gmail.com?subject=Combi-deal%20Reviewkaartjes">Vraag de combi-deal aan</a>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Waarom nu</span>
+      <h2>Elke dag zonder reactie is een dag dat een nieuwe klant twijfelt.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="mark">1</div>
+        <h3>Geen lange contracten</h3>
+        <p>Maandelijks opzegbaar, 1 kalendermaand opzegtermijn. Geen jaarcontract, geen risico.</p>
+      </div>
+      <div class="why-item">
+        <div class="mark">2</div>
+        <h3>Eerst zien, dan beslissen</h3>
+        <p>U ontvangt vooraf een gratis reputatiecheck van uw eigen Google-profiel — pas daarna kiest u een pakket.</p>
+      </div>
+      <div class="why-item">
+        <div class="mark">3</div>
+        <h3>Altijd door een mens gecontroleerd</h3>
+        <p>Elke reactie wordt gecontroleerd voordat deze gepubliceerd wordt. Nooit ongecontroleerde AI-tekst, nooit verzonnen feiten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="over-mij">
+  <div class="wrap">
+    <div class="marketing-intro">
+      <div class="about-text">
+        <span class="eyebrow">Wie er achter ReviewFlow zit</span>
+        <h2 style="font-size:clamp(24px,3.2vw,32px); line-height:1.2; margin-bottom:18px;">Eén persoon, die zelf meeleest voordat er iets naar u toe gaat.</h2>
+        <p>Ik ben Damien van Lier en run ReviewFlow alleen. Geen callcenter, geen wisselende medewerkers: als u een conceptreactie ontvangt, heb ik die zelf gelezen en gecontroleerd voordat hij bij u terechtkomt.</p>
+        <p>Ik werk vanuit Goeree-Overflakkee en richt me bewust op lokale ondernemers. U spreekt rechtstreeks met de persoon die ook daadwerkelijk uw reacties schrijft, controleert en waar nodig telefonisch toelicht.</p>
+      </div>
+      <!-- TODO (Damien): vervang dit monogram-blok door een eigen foto zodra beschikbaar -->
+      <div class="about-card">
+        <svg width="40" height="40" viewBox="0 0 54 53" fill="#C9A15A" aria-hidden="true"><path d="M27,0L34.2,12.8L48.7,10.4L43.1,24L54,33.9L39.9,38L39,52.6L27,44.2L15,52.6L14.1,38L0,33.9L10.9,24L5.3,10.4L19.8,12.8Z"/></svg>
+        <span class="name">Damien van Lier</span>
+        <span class="role">Oprichter, ReviewFlow</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2>Klaar om uw reputatie uit handen te geven?</h2>
+    <p>Plan een korte, vrijblijvende kennismaking — inclusief een gratis reputatiecheck van uw huidige Google-profiel.</p>
+    <a class="btn-primary" href="mailto:damienvanlier@gmail.com">damienvanlier@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 ReviewFlow — Damien van Lier</span>
+    <span><a href="#privacy">Privacyverklaring</a> · <a href="mailto:damienvanlier@gmail.com">damienvanlier@gmail.com</a></span>
+  </div>
+</footer>
+
+<section id="privacy">
+  <div class="wrap">
+    <h2>Privacyverklaring</h2>
+    <div class="updated">Laatst bijgewerkt: augustus 2026</div>
+
+    <h3>Wie wij zijn</h3>
+    <p>ReviewFlow (Damien van Lier) biedt online reputatiebeheer en reviewbeheer aan lokale ondernemers in Nederland. Deze privacyverklaring legt uit welke gegevens wij verwerken, waarom, en welke rechten u heeft.</p>
+
+    <h3>Welke gegevens wij verwerken</h3>
+    <ul>
+      <li>Contactgegevens van onze klanten (bedrijfsnaam, contactpersoon, e-mail, telefoonnummer)</li>
+      <li>Openbare Google-reviewgegevens van de bedrijfsprofielen die wij namens klanten beheren (reviewtekst, sterrenscore, naam van de reviewer zoals openbaar zichtbaar op Google)</li>
+      <li>Door de klant aangeleverde bedrijfsinformatie (tone of voice, veelgestelde vragen, openingstijden)</li>
+    </ul>
+
+    <h3>Waarvoor wij deze gegevens gebruiken</h3>
+    <p>Uitsluitend om de overeengekomen dienst te leveren: het opstellen en plaatsen van reacties op reviews, het beantwoorden van klantvragen, en maandelijkse rapportage. Wij gebruiken geen gegevens voor andere doeleinden en verkopen geen gegevens aan derden.</p>
+
+    <h3>AI-verwerking door een derde partij</h3>
+    <p>Voor het opstellen van conceptreacties maken wij gebruik van een AI-taalmodel van een derde partij. Hierbij worden alleen gegevens verwerkt die noodzakelijk zijn voor de dienstverlening. Concepten worden altijd door ons gecontroleerd voordat ze gepubliceerd worden — er wordt nooit ongecontroleerde AI-tekst geplaatst.</p>
+
+    <h3>Uitgelicht (bij Business en Premium)</h3>
+    <p>Bij het Uitgelicht-onderdeel wordt de voornaam en reviewtekst van een klant — reeds openbaar zichtbaar op Google — samen met onze reactie verwerkt tot een social-media-afbeelding. Er wordt nooit een foto of ander profiel van de reviewer gebruikt, uitsluitend de voornaam zoals die al openbaar bij de review staat.</p>
+
+    <h3>Toegang tot uw Google Bedrijfsprofiel</h3>
+    <p>Indien u kiest voor Manager-toegang: dit verloopt uitsluitend via Google's eigen uitnodigingssysteem. Wij ontvangen of bewaren nooit uw inloggegevens, en u kunt de toegang op elk moment zelf intrekken via uw Google Bedrijfsprofiel-instellingen.</p>
+
+    <h3>Bewaartermijn</h3>
+    <p>Wij bewaren klantgegevens zolang de samenwerking loopt, en verwijderen deze uiterlijk 3 maanden na beëindiging van de overeenkomst, tenzij een langere bewaartermijn wettelijk verplicht is (bijv. facturatiegegevens).</p>
+
+    <h3>Uw rechten</h3>
+    <p>U heeft het recht op inzage, correctie, verwijdering en overdraagbaarheid van uw gegevens, en het recht om bezwaar te maken tegen de verwerking ervan. Neem hiervoor contact op via damienvanlier@gmail.com.</p>
+
+    <h3>Contact</h3>
+    <p>Vragen over deze privacyverklaring? Mail naar <a href="mailto:damienvanlier@gmail.com">damienvanlier@gmail.com</a>.</p>
+  </div>
+</section>
+
+<script>
+  // Mobile nav toggle
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    if(!toggle || !links) return;
+    toggle.addEventListener('click', function(){
+      var open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      links.classList.toggle('open', !open);
+      toggle.setAttribute('aria-label', open ? 'Menu openen' : 'Menu sluiten');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        toggle.setAttribute('aria-expanded', 'false');
+        links.classList.remove('open');
+        toggle.setAttribute('aria-label', 'Menu openen');
+      });
+    });
+  })();
+
+  // Combo pricing calculator — mirrors the 5%-per-combined-tier discount model
+  (function(){
+    var reviewSel = document.getElementById('calcReview');
+    var adsSel = document.getElementById('calcAds');
+    var wasEl = document.getElementById('calcWas');
+    var pctEl = document.getElementById('calcPct');
+    var nowEl = document.getElementById('calcNow');
+    if(!reviewSel || !adsSel) return;
+
+    var tierIndex = { "49":0, "99":1, "179":2, "69":0, "129":1, "199":2 };
+    var fmt = function(n){
+      return '€' + n.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+
+    function update(){
+      var review = parseInt(reviewSel.value, 10);
+      var ads = parseInt(adsSel.value, 10);
+      var was = review + ads;
+      var combinedTier = tierIndex[reviewSel.value] + tierIndex[adsSel.value]; // 0–4
+      var discountPct = 10 + (combinedTier * 5); // 10, 15, 20, 25, 30
+      var now = was * (1 - discountPct / 100);
+
+      wasEl.textContent = fmt(was);
+      pctEl.textContent = '−' + discountPct + '%';
+      nowEl.textContent = fmt(now);
+    }
+
+    reviewSel.addEventListener('change', update);
+    adsSel.addEventListener('change', update);
+    update();
+  })();
+</script>
+</body>
+</html>
