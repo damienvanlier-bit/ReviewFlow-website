@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://damienvanlier-bit.github.io/ReviewFlow-website/sitemap.xml
