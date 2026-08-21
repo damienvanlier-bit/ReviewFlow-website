@@ -1,0 +1,61 @@
+name: ReviewFlow — conceptreactie maken
+
+on:
+  workflow_dispatch:
+    inputs:
+      client:
+        description: "Klant"
+        required: true
+        type: choice
+        options:
+          - ami-kappers-middelharnis
+      reviewer_name:
+        description: "Naam van de reviewer"
+        required: true
+        type: string
+      stars:
+        description: "Aantal sterren"
+        required: true
+        type: choice
+        options:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+      review_text:
+        description: "De volledige reviewtekst"
+        required: true
+        type: string
+
+jobs:
+  draft-reply:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: automation
+    steps:
+      - name: Repository ophalen
+        uses: actions/checkout@v4
+
+      - name: Node.js instellen
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: automation/package-lock.json
+
+      - name: Dependencies installeren
+        run: npm ci
+
+      - name: Conceptreactie maken en mailen
+        run: npm start
+        env:
+          CLIENT: ${{ inputs.client }}
+          REVIEWER_NAME: ${{ inputs.reviewer_name }}
+          STARS: ${{ inputs.stars }}
+          REVIEW_TEXT: ${{ inputs.review_text }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          APPROVER_EMAIL: ${{ secrets.APPROVER_EMAIL }}
